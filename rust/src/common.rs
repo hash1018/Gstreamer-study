@@ -46,6 +46,7 @@ where
 
             std::process::exit(0);
 
+            #[allow(unreachable_code)]
             _res
         });
 
