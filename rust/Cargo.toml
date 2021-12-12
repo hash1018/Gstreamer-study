@@ -13,3 +13,7 @@ cocoa = "0.24"
 [[bin]]
 name = "chapter-1"
 path = "src/chapter-1/chapter-1.rs"
+
+[[bin]]
+name = "chapter-2"
+path = "src/chapter-2/chapter-2.rs"
