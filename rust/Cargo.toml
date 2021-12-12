@@ -1,0 +1,15 @@
+[package]
+name = "chapter_1"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+gst = {package ="gstreamer",version = "0.17", features =["v1_18"]}
+[target.'cfg(target_os = "macos")'.dependencies]
+cocoa = "0.24"
+
+[[bin]]
+name = "chapter-1"
+path = "src/chapter-1/chapter-1.rs"

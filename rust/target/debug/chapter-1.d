@@ -1,0 +1,1 @@
+/Users/seunghoha/Project/gstreamer_study/rust/target/debug/chapter-1: /Users/seunghoha/Project/gstreamer_study/rust/src/chapter-1/chapter-1.rs /Users/seunghoha/Project/gstreamer_study/rust/src/common.rs
