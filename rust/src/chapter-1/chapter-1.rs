@@ -42,7 +42,7 @@ fn tutorial_main() {
         .set_state(gst::State::Null)
         .expect("Unable to set the pipeline to the `Null` state");
 
-        println!("pipleline Null");
+    println!("pipleline Null");
 }
 
 fn main() {
