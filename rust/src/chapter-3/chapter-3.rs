@@ -13,7 +13,7 @@ fn tutorial_main() {
     // There exists sink pads, through which data enters an element, and source pads, through which data exits an element.
     // It follows naturally that source elements only contain source pads, sink elements only contain sink pads, and filter elements contain both.
 
-    // Create the elements //source element only contains src pad, through which data exists an element.
+    // Create the elements //source element only contains src pad, through which data exits an element.
 
     // uridecodebin will internally instantiate all the necessary elements (sources, demuxers and decoders)
     // to turn a URI into raw audio and/or video streams. It does half the work that playbin does.
@@ -251,6 +251,13 @@ fn exercise() {
         .expect("Unable to set the pipeline to the `Null` state");
 
     println!("pipeline NULL");
+
+
+    // State	Description
+    // NULL	the NULL state or initial state of an element.
+    // READY	the element is ready to go to PAUSED.
+    // PAUSED	the element is PAUSED, it is ready to accept and process data. Sink elements however only accept one buffer and then block.
+    // PLAYING	the element is PLAYING, the clock is running and the data is flowing.
 }
 
 fn main() {
