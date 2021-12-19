@@ -138,7 +138,7 @@ fn tutorial_main() {
         .expect("Unable to set the pipeline to the `Null` state");
 }
 
-//video 
+//video
 #[allow(dead_code)]
 fn exercise() {
     // Initialize GStreamer
@@ -251,7 +251,6 @@ fn exercise() {
         .expect("Unable to set the pipeline to the `Null` state");
 
     println!("pipeline NULL");
-
 
     // State	Description
     // NULL	the NULL state or initial state of an element.

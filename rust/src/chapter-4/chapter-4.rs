@@ -60,7 +60,6 @@ fn tutorial_main() {
             }
             None => {
                 if custom_data.playing {
-
                     /* Query the current position of the stream */
                     let position = custom_data
                         .playbin
@@ -78,7 +77,7 @@ fn tutorial_main() {
                         position,
                         custom_data.duration.display()
                     );
-                    
+
                     io::stdout().flush().unwrap();
                     */
 
@@ -96,24 +95,22 @@ fn tutorial_main() {
                             )
                             .expect("Failed to seek.");
 
-                            // gst::SeekFlags::FLUSH: This discards all data currently in the pipeline before doing the seek. 
-                            // Might pause a bit while the pipeline is refilled and the new data starts to show up, 
-                            // but greatly increases the “responsiveness” of the application. 
-                            // If this flag is not provided, “stale” data might be shown for a while until the new position appears at the end of the pipeline.
+                        // gst::SeekFlags::FLUSH: This discards all data currently in the pipeline before doing the seek.
+                        // Might pause a bit while the pipeline is refilled and the new data starts to show up,
+                        // but greatly increases the “responsiveness” of the application.
+                        // If this flag is not provided, “stale” data might be shown for a while until the new position appears at the end of the pipeline.
 
+                        // gst::SeekFlags::KEY_UNIT: With most encoded video streams,
+                        // seeking to arbitrary positions is not possible but only to certain frames called Key Frames.
+                        // When this flag is used, the seek will actually move to the closest key frame and start producing data straight away.
+                        // If this flag is not used, the pipeline will move internally to the closest key frame (it has no other alternative)
+                        // but data will not be shown until it reaches the requested position. This last alternative is more accurate, but might take longer.
 
-                            // gst::SeekFlags::KEY_UNIT: With most encoded video streams, 
-                            // seeking to arbitrary positions is not possible but only to certain frames called Key Frames. 
-                            // When this flag is used, the seek will actually move to the closest key frame and start producing data straight away. 
-                            // If this flag is not used, the pipeline will move internally to the closest key frame (it has no other alternative) 
-                            // but data will not be shown until it reaches the requested position. This last alternative is more accurate, but might take longer.
-
-                            // gst::SeekFlags::ACCURATE: Some media clips do not provide enough indexing information, 
-                            // meaning that seeking to arbitrary positions is time-consuming. 
-                            // In these cases, GStreamer usually estimates the position to seek to, and usually works just fine. 
-                            // If this precision is not good enough for your case (you see seeks not going to the exact time you asked for), 
-                            // then provide this flag. Be warned that it might take longer to calculate the seeking position (very long, on some files).
-
+                        // gst::SeekFlags::ACCURATE: Some media clips do not provide enough indexing information,
+                        // meaning that seeking to arbitrary positions is time-consuming.
+                        // In these cases, GStreamer usually estimates the position to seek to, and usually works just fine.
+                        // If this precision is not good enough for your case (you see seeks not going to the exact time you asked for),
+                        // then provide this flag. Be warned that it might take longer to calculate the seeking position (very long, on some files).
 
                         custom_data.seek_done = true;
                     }
@@ -166,9 +163,9 @@ fn handle_message(custom_data: &mut CustomData, msg: &gst::Message) {
 
                 custom_data.playing = new_state == gst::State::Playing;
 
-                // Seeks and time queries generally only get a valid reply when in the PAUSED or PLAYING state, 
-                // since all elements have had a chance to receive information and configure themselves. 
-                // Here, we use the playing variable to keep track of whether the pipeline is in PLAYING state. 
+                // Seeks and time queries generally only get a valid reply when in the PAUSED or PLAYING state,
+                // since all elements have had a chance to receive information and configure themselves.
+                // Here, we use the playing variable to keep track of whether the pipeline is in PLAYING state.
                 // Also, if we have just entered the PLAYING state, we do our first query. We ask the pipeline if seeking is allowed on this stream:
 
                 if custom_data.playing {
