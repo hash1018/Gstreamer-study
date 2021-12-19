@@ -54,9 +54,9 @@ fn print_pad_template_information(factory: &gst::ElementFactory) {
     }
 
     // Pads are created from Pad Templates, which indicate all possible Capabilities a Pad could ever have.
-    // Templates are useful to create several similar Pads, and also allow early refusal of connections between elements: 
+    // Templates are useful to create several similar Pads, and also allow early refusal of connections between elements:
     // If the Capabilities of their Pad Templates do not have a common subset (their intersection is empty), there is no need to negotiate further.
-    // Pad Templates can be viewed as the first step in the negotiation process. 
+    // Pad Templates can be viewed as the first step in the negotiation process.
     // As the process evolves, actual Pads are instantiated and their Capabilities refined until they are fixed (or negotiation fails).
 
     for pad_template in factory.static_pad_templates() {

@@ -29,3 +29,7 @@ path = "src/chapter-4/chapter-4.rs"
 [[bin]]
 name = "chapter-6"
 path = "src/chapter-6/chapter-6.rs"
+
+[[bin]]
+name = "chapter-7"
+path = "src/chapter-7/chapter-7.rs"
