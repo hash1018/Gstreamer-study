@@ -10,6 +10,18 @@ fn tutorial_main() {
         return;
     }
 
+    // Request pads
+    // In Basic tutorial 3: Dynamic pipelines we saw an element (uridecodebin) which had no pads to begin with,
+    // and they appeared as data started to flow and the element learned about the media.
+    // These are called Sometimes Pads, and contrast with the regular pads which are always available and are called Always Pads.
+    // The third kind of pad is the Request Pad, which is created on demand.
+    // The classical example is the tee element, which has one sink pad and no initial source pads: they need to be requested and then tee adds them.
+    // In this way, an input stream can be replicated any number of times.
+    // The disadvantage is that linking elements with Request Pads is not as automatic, as linking Always Pads, as the walkthrough for this example will show.
+    // Also, to request (or release) pads in the PLAYING or PAUSED states,
+    // you need to take additional cautions (Pad blocking) which are not described in this tutorial.
+    // It is safe to request (or release) pads in the NULL or READY states, though.
+
     let audio_source = gst::ElementFactory::make("audiotestsrc", Some("audio_source")).unwrap();
     let tee = gst::ElementFactory::make("tee", Some("tee")).unwrap();
     let audio_queue = gst::ElementFactory::make("queue", Some("audio_queue")).unwrap();
