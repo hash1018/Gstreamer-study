@@ -118,6 +118,17 @@ fn main() {
     tee_app_pad.link(&queue_app_pad).unwrap();
 
     // configure appsrc
+
+    // The first property that needs to be set on the appsrc is caps.
+    // It specifies the kind of data that the element is going to produce,
+    // so GStreamer can check if linking with downstream elements is possible
+    // (this is, if the downstream elements will understand this kind of data).
+    // This property must be a GstCaps object, which is easily built from a string with gst_caps_from_string().
+
+    // We then connect to the need-data and enough-data signals.
+    // These are fired by appsrc when its internal queue of data is running low or almost full, respectively.
+    // We will use these signals to start and stop (respectively) our signal generation process.
+
     let info = AudioInfo::builder(gst_audio::AudioFormat::S16le, SAMPLE_RATE, 1)
         .build()
         .unwrap();
@@ -128,6 +139,10 @@ fn main() {
         .expect("Source element is expected to be an appsrc!");
     appsrc.set_caps(Some(&audio_caps));
     appsrc.set_format(gst::Format::Time);
+
+    // Regarding the appsink configuration, we connect to the new-sample signal,
+    // which is emitted every time the sink receives a buffer.
+    // Also, the signal emission needs to be enabled through the emit-signals property, because, by default, it is disabled.
 
     let appsink = appsink
         .dynamic_cast::<AppSink>()
@@ -182,6 +197,7 @@ fn main() {
                                         data.a += data.b;
                                         data.b -= data.a / freq;
                                         *sample = 500 * (data.a as i16);
+                                        //*sample = 0;
                                     }
 
                                     data.num_samples += num_samples as u64;
@@ -256,6 +272,10 @@ fn main() {
             );
             eprintln!("Debugging information: {:?}", err.debug());
             main_loop.quit();
+        }
+
+        gst::MessageView::StateChanged(state_changed) => {
+            println!("state changed {:?} ", state_changed.current());
         }
         _ => unreachable!(),
     });
