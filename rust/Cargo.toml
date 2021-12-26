@@ -8,9 +8,11 @@ edition = "2021"
 [dependencies]
 gst = {package ="gstreamer",version = "0.17", features =["v1_18"]}
 gst_app = {package="gstreamer-app",version = "0.17.2"}
-gst_audio ={package="gstreamer-audio",version = "0.17.2"}
+gst_audio = {package="gstreamer-audio",version = "0.17.2"}
+gst_pbutils = {package="gstreamer-pbutils",version = "0.17.2"}
 glib = "0.14.8"
 byte-slice-cast = "1.2.0"
+anyhow = "1.0.52"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 cocoa = "0.24"
@@ -42,3 +44,7 @@ path = "src/chapter-7/chapter-7.rs"
 [[bin]]
 name = "chapter-8"
 path = "src/chapter-8/chapter-8.rs"
+
+[[bin]]
+name = "chapter-9"
+path = "src/chapter-9/chapter-9.rs"
